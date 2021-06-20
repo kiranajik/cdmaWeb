@@ -26,8 +26,6 @@ else
 }
 
 
-
-
 $sql2 = "SELECT pGender, COUNT(*) AS freq FROM patient GROUP BY pGender";
 $result2 = $conn->query($sql2);
 $gender_labels=[];
@@ -116,14 +114,39 @@ else
         margin: 0 auto;
         
       }
-    }
-    @media screen and (max-width: 650px) {
+      }
+     
+     
+     
+     
+      @media screen and (max-width: 650px) {
       .container {
         width:87vw;
         margin: 0 auto;
         
       }
-    }
+      #radar-chart{
+            height: 45vh !important;
+      }
+      .lev-2{
+        height: 46vh;
+        box-sizing: border-box;
+        padding:5px !important;
+      }
+ }
+
+
+ @media screen and (max-width: 850px) {
+
+      #radar-chart{
+            height: 45vh !important;
+      }
+      .lev-2{
+        height: 46vh;
+        box-sizing: border-box;
+        padding:5px !important;
+      }
+ }
 
     .item{
       background-color:white;
@@ -131,6 +154,7 @@ else
       padding:20px;
       border-radius:10px;
     }
+
     .item-dark{
       background-color:#1f1f1f;
      }
@@ -155,6 +179,12 @@ else
         <canvas id="histogram"></canvas>
         </div>
         <div class="space"></div>
+        <div class="item lev-2">
+        <canvas id="radar-chart"></canvas>
+        </div>
+
+
+        <div class="space"></div>
         <div class="item">
         <canvas id="myChart"></canvas>
         </div>
@@ -171,8 +201,6 @@ else
 </div>
 
 <script>
-
-
 
 
 const ctx = document.getElementById('histogram').getContext('2d');
@@ -227,6 +255,66 @@ const chart = new Chart(ctx, {
   },
 });
 
+var radar_options;
+if (document.documentElement.clientWidth < 850) {
+	  radar_options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scale: {
+      gridLines: {
+        color: 'rgba(255, 255, 255, 0.2)'
+      }
+    }
+    
+};
+}
+else{
+  radar_options = {
+    responsive: true,
+
+   };
+}
+
+const ktx = document.getElementById('radar-chart').getContext('2d');
+const radarchart = new Chart(ktx, 
+{ 
+  type: 'radar',
+  data: {
+              labels: [
+                'Eating',
+                'Drinking',
+                'Sleeping',
+                'Designing',
+                'Coding',
+                'Cycling',
+                'Running'
+              ],
+              datasets: [{
+                label: 'Male',
+                data: [65, 59, 90, 81, 56, 55, 40],
+                fill: true,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgb(255, 99, 132)',
+                pointBackgroundColor: 'rgb(255, 99, 132)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(255, 99, 132)'
+              }, {
+                label: 'Female',
+                data: [28, 48, 40, 19, 96, 27, 100],
+                fill: true,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgb(54, 162, 235)',
+                pointBackgroundColor: 'rgb(54, 162, 235)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(54, 162, 235)'
+              }]
+          },
+
+          options:radar_options
+
+});
 
 
 
@@ -295,6 +383,8 @@ var myChart = new Chart(gtx, {
 
 
 $(document).ready(function(){
+
+
             $('.theme-toggle').click(function(){
                 var element = document.body;  
                 var url = $('#mode').attr('src');       
@@ -303,9 +393,15 @@ $(document).ready(function(){
                 $('.item').toggleClass('item-dark');
 
                 if(url=="moon.png")
+                {
+                dark="false";
                 $('#mode').attr('src','sun.png');
+                }
                 else if(url=="sun.png")
+                {
+                dark="true";
                 $('#mode').attr('src','moon.png');
+                }
            
             });
         }); 

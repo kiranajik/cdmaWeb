@@ -169,25 +169,6 @@ else
         <div class="space"></div>
     </section>
 </div>
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
 
@@ -197,7 +178,7 @@ const chart = new Chart(ctx, {
   data: {
     labels:["ALP","EKM","IDK","KNR","KGD","KLM","KTM","KKD","MLP","PKD","PT","TVM","TSR","WAD"],
     datasets: [{
-      label: 'Covid District-Wise  Distribution',
+      label: 'Covid Total Cases District-Wise  Distribution',
       data: <?php echo json_encode($Taluk_frequency); ?>,
       backgroundColor: [
 
@@ -242,6 +223,12 @@ const chart = new Chart(ctx, {
     }
   },
 });
+
+
+
+
+
+
 var btx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(btx, {
   type: 'pie',

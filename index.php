@@ -172,6 +172,9 @@ else
 
 <script>
 
+
+
+
 const ctx = document.getElementById('histogram').getContext('2d');
 const chart = new Chart(ctx, {
   type: 'bar',

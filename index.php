@@ -194,9 +194,8 @@ else
         </div>
         <div class="space"></div>
         <div class="item">
-        <canvas id="donut" ></canvas>
+        <canvas id="bar-chart-horizontal" width="800" height="450"></canvas>
         </div>
-        <div class="space"></div>
     </section>
 </div>
 
@@ -361,25 +360,30 @@ var lineChart = new Chart(dtx, {
 });
 
 
-var gtx = document.getElementById("donut");
-var myChart = new Chart(gtx, {
-  type: 'doughnut',
-  data: {
-    labels: <?php echo json_encode($symp_labels); ?>,
-    datasets: [{
-      label: 'My First Dataset',
-      data: <?php echo json_encode($symp_frequency); ?>,
-      backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)',
-      '#FFC288',
-      '#02475E'
-    ],
-    hoverOffset: 4
-    }]
-  },
+new Chart(document.getElementById("bar-chart-horizontal"), {
+    type: 'horizontalBar',
+    data: {
+      labels: <?php echo json_encode($symp_labels); ?>,
+      datasets: [
+        {
+          label: "Reported Covid Cases(patients)",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#95a5a6",
+        "#2b59b6",
+        "#f1c40f",
+        "#fe9c8f",],
+          data: <?php echo json_encode($symp_frequency); ?>
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'All Reported cases and their symptoms'
+      }
+    }
 });
+
 
 
 $(document).ready(function(){

@@ -125,27 +125,6 @@ else
         margin: 0 auto;
         
       }
-      #radar-chart{
-            height: 45vh !important;
-      }
-      .lev-2{
-        height: 46vh;
-        box-sizing: border-box;
-        padding:5px !important;
-      }
- }
-
-
- @media screen and (max-width: 850px) {
-
-      #radar-chart{
-            height: 45vh !important;
-      }
-      .lev-2{
-        height: 46vh;
-        box-sizing: border-box;
-        padding:5px !important;
-      }
  }
 
     .item{
@@ -179,11 +158,6 @@ else
         <canvas id="histogram"></canvas>
         </div>
         <div class="space"></div>
-        <div class="item lev-2">
-        <canvas id="radar-chart"></canvas>
-        </div>
-
-
         <div class="space"></div>
         <div class="item">
         <canvas id="myChart"></canvas>
@@ -253,71 +227,6 @@ const chart = new Chart(ctx, {
     }
   },
 });
-
-var radar_options;
-if (document.documentElement.clientWidth < 850) {
-	  radar_options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scale: {
-      gridLines: {
-        color: 'rgba(255, 255, 255, 0.2)'
-      }
-    }
-    
-};
-}
-else{
-  radar_options = {
-    responsive: true,
-
-   };
-}
-
-const ktx = document.getElementById('radar-chart').getContext('2d');
-const radarchart = new Chart(ktx, 
-{ 
-  type: 'radar',
-  data: {
-              labels: [
-                'Eating',
-                'Drinking',
-                'Sleeping',
-                'Designing',
-                'Coding',
-                'Cycling',
-                'Running'
-              ],
-              datasets: [{
-                label: 'Male',
-                data: [65, 59, 90, 81, 56, 55, 40],
-                fill: true,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgb(255, 99, 132)',
-                pointBackgroundColor: 'rgb(255, 99, 132)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgb(255, 99, 132)'
-              }, {
-                label: 'Female',
-                data: [28, 48, 40, 19, 96, 27, 100],
-                fill: true,
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgb(54, 162, 235)',
-                pointBackgroundColor: 'rgb(54, 162, 235)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgb(54, 162, 235)'
-              }]
-          },
-
-          options:radar_options
-
-});
-
-
-
-
 
 var btx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(btx, {

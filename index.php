@@ -75,8 +75,62 @@ else
 {
     echo "0 results";
 }
-  $conn->close();
+
+
+
+$sql5a = "SELECT pDistrict, COUNT(*) AS freq FROM patient WHERE pStatus='P' GROUP BY pDistrict";
+$sql5b = "SELECT pDistrict, COUNT(*) AS freq FROM patient WHERE pStatus='N' GROUP BY pDistrict";
+$sql5c = "SELECT pDistrict, COUNT(*) AS freq FROM patient WHERE pStatus='D' GROUP BY pDistrict";
+
+$result5a = $conn->query($sql5a);
+$result5b = $conn->query($sql5b);
+$result5c = $conn->query($sql5c);
+
+$status_labels=[];
+$status_frequency_P=[];
+$status_frequency_N=[];
+$status_frequency_D=[];
+
+
+if ($result5a->num_rows > 0) {
+    while($row = $result5a->fetch_assoc()) {
+      $status_labels[] = $row["pDistrict"];
+      $status_frequency_P[] = $row["freq"];
+    }
+  } 
+else 
+{
+    echo "0 results";
+}
+if ($result5b->num_rows > 0) {
+  while($row = $result5b->fetch_assoc()) {
+    $status_frequency_N[] = $row["freq"];
+   
+  }
+} 
+
+else 
+{
+  echo "0 results";
+}
+if ($result5c->num_rows > 0) {
+  while($row = $result5c->fetch_assoc()) {
+    $status_frequency_D[] = $row["freq"];
+  }
+} 
+else 
+{
+  echo "0 results";
+}
+
+$conn->close();
+
+
+
 ?>
+
+
+
 
 
 <!DOCTYPE html>
@@ -158,7 +212,10 @@ else
         <div class="item">
         <canvas id="histogram"></canvas>
         </div>
-        <div class="space"></div>
+        <div class="space"></div>      
+        <div class="item">
+        <canvas id="pnchart"></canvas>
+        </div>
         <div class="space"></div>
         <div class="item">
         <canvas id="myChart"></canvas>
@@ -212,7 +269,8 @@ const chart = new Chart(ctx, {
         ticks: {
           max: 3,
         }
-      }, {
+      }, 
+      {
         display: true,
         ticks: {
           autoSkip: false,
@@ -225,7 +283,12 @@ const chart = new Chart(ctx, {
           autoskip:true
         }
       }]
-    }
+    },
+    legend :  { display: false },
+    title: {
+        display: true,
+        text: 'Total covid Cases - District Wise Distribution'
+      }
   },
 });
 
@@ -294,6 +357,35 @@ new Chart(document.getElementById("bar-chart-horizontal"), {
     }
 });
 
+
+var ltx = document.getElementById('pnchart').getContext('2d');
+      var myChart = new Chart(ltx, {
+          type: 'bar',
+          data: {
+            labels: ["ALP","EKM","IDK","KNR","KGD","KLM","KTM","KKD","MLP","PKD","PT","TVM","TSR","WAD"],
+            datasets: [{ 
+                data:  <?php echo json_encode($status_frequency_N);?>,
+                label: "-Ve",
+                borderColor: "rgb(62,149,205)",
+                backgroundColor: "rgb(62,149,205)",
+                borderWidth:2
+              }, { 
+                data: <?php echo json_encode($status_frequency_P);?>,
+                label: "+ve",
+                borderColor: "rgb(255,165,0)",
+                backgroundColor:"rgb(255,165,0)",
+                borderWidth:2
+              }, { 
+                data: <?php echo json_encode($status_frequency_D);?>,
+                label: "Death",
+                borderColor: "rgb(196,88,80)",
+                backgroundColor:"rgb(196,88,80)",
+                borderWidth:2
+              }
+            ]
+          },
+          
+        });
 
 
 $(document).ready(function(){

@@ -1,8 +1,8 @@
 <?php
 
-// // $conn = new mysqli("localhost","root","","covid");
-// $conn = new mysqli("localhost","root","","covid");
-$conn = new mysqli("localhost","u307892079_kiranajik","Kiran@#123","u307892079_covid");
+
+$conn = new mysqli("localhost","root","","covid");
+// $conn = new mysqli("localhost","u307892079_kiranajik","Kiran@#123","u307892079_covid");
 
 
 if ($conn->connect_errno) {

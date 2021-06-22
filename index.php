@@ -81,15 +81,23 @@ else
 $sql5a = "SELECT pDistrict, COUNT(*) AS freq FROM patient WHERE pStatus='P' GROUP BY pDistrict";
 $sql5b = "SELECT pDistrict, COUNT(*) AS freq FROM patient WHERE pStatus='N' GROUP BY pDistrict";
 $sql5c = "SELECT pDistrict, COUNT(*) AS freq FROM patient WHERE pStatus='D' GROUP BY pDistrict";
+$sql6a = "SELECT pDistrict, COUNT(*) AS freq FROM patient WHERE pGender='F' GROUP BY pDistrict";
+$sql6b = "SELECT pDistrict, COUNT(*) AS freq FROM patient WHERE pGender='M' GROUP BY pDistrict";
 
 $result5a = $conn->query($sql5a);
 $result5b = $conn->query($sql5b);
 $result5c = $conn->query($sql5c);
+$result6a = $conn->query($sql6a);
+$result6b = $conn->query($sql6b);
+
+
 
 $status_labels=[];
 $status_frequency_P=[];
 $status_frequency_N=[];
 $status_frequency_D=[];
+$male_district_frequency=[];
+$female_district_frequency=[];
 
 
 if ($result5a->num_rows > 0) {
@@ -122,6 +130,23 @@ else
 {
   echo "0 results";
 }
+
+if ($result6a->num_rows > 0) {
+  while($row = $result6a->fetch_assoc()) {
+    $female_district_frequency[] = $row["freq"];
+  }
+} 
+if ($result6b->num_rows > 0) {
+  while($row = $result6b->fetch_assoc()) {
+    $male_district_frequency[] = $row["freq"];
+  }
+} 
+
+
+
+
+
+
 
 $conn->close();
 
@@ -169,6 +194,12 @@ $conn->close();
         margin: 0 auto;
         
       }
+              
+    
+      .space{
+      height:2em !important;
+    }
+      
       }
      
      
@@ -180,6 +211,9 @@ $conn->close();
         margin: 0 auto;
         
       }
+      .space{
+      height:1em;
+    }
  }
 
     .item{
@@ -228,6 +262,12 @@ $conn->close();
         <div class="item">
         <canvas id="bar-chart-horizontal" width="800" height="450"></canvas>
         </div>
+        <div class="space"></div>
+        <div class="item">
+        <canvas id="age-gender-chart" width="800" height="450"></canvas>
+        </div>
+
+
     </section>
 </div>
 
@@ -287,7 +327,8 @@ const chart = new Chart(ctx, {
     legend :  { display: false },
     title: {
         display: true,
-        text: 'Total covid Cases - District Wise Distribution'
+        text: 'Total covid Cases - District Wise Distribution',
+        fontSize:10
       }
   },
 });
@@ -327,7 +368,8 @@ var lineChart = new Chart(dtx, {
 					reverse: false
         }
       }]
-    }
+    },
+
   }
   }
 });
@@ -386,6 +428,45 @@ var ltx = document.getElementById('pnchart').getContext('2d');
           },
         });
 
+new Chart(document.getElementById("age-gender-chart"), {
+  type: 'line',
+  data: {
+    labels: ["ALP","EKM","IDK","KNR","KGD","KLM","KTM","KKD","MLP","PKD","PT","TVM","TSR","WAD"],
+    datasets: [{ 
+        data: <?php echo json_encode($male_district_frequency);?>,
+        label: "Male",
+        borderColor: "#3e95cd",
+        backgroundColor:"#3e95cd",
+        fill: false
+      }, 
+      { 
+        data:  <?php echo json_encode($female_district_frequency);?>,
+        label: "Female",
+        borderColor: "#3cba9f",
+        backgroundColor:"#3cba9f",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'District Wise Gender Analysis',
+      fontSize: 10
+    },
+    legend: {
+      position : 'bottom',
+      labels:{
+        usePointStyle:true,
+        pointStyle: 'circle',
+        fontSize:8
+
+      }
+    },
+  }
+});
+
+
 
 $(document).ready(function(){
 
@@ -410,6 +491,7 @@ $(document).ready(function(){
            
             });
         }); 
+
 
 
 

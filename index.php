@@ -221,9 +221,8 @@ $conn->close();
     
       .space{
       height:2em !important;
-    }
-      
       }
+    }
      
      
      
@@ -252,16 +251,16 @@ $conn->close();
     .space{
       height:1em;
     }
-    .container{
+    /* .container{
       margin-top:2em;
-    }
+    } */
 
 </style>
 </head>
 <body>
 
 <?php include "header.php"; ?>
-
+<?php include "nav.php"; ?>
 <div class="container">
 
 
@@ -518,7 +517,7 @@ new Chart(document.getElementById("status-gender-chart"), {
   options: {
     title: {
       display: true,
-      text: 'Gender Vise Patient Status',
+      text: 'Gender Wise Patient Status',
       fontSize: 10
     },
     legend: {

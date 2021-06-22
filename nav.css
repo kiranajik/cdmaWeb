@@ -1,0 +1,22 @@
+.nav-bar {
+    width: fit-content;
+    margin: 2vh auto 4vh auto;
+}
+
+.nav-bar>a {
+    text-decoration: none;
+}
+
+.nav-button {
+    margin: 0 1vw;
+    padding: 1vh 1vh 1vh 1vh;
+    background-color: #073349;
+    color: white;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 650px) {
+    .nav-button {
+        font-size: 0.7em;
+    }
+}

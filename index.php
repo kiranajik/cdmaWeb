@@ -296,7 +296,7 @@ var btx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(btx, {
   type: 'pie',
   data: {
-    labels: <?php echo json_encode($gender_labels); ?>,
+    labels: ["Male","Female"],
     datasets: [{
       backgroundColor: [
         "#2ecc71",
@@ -304,7 +304,7 @@ var myChart = new Chart(btx, {
       ],
       data: <?php echo json_encode($gender_frequency); ?>
     }]
-  }
+  },
 });
 
 var dtx = document.getElementById("line-chart").getContext('2d');
@@ -384,7 +384,6 @@ var ltx = document.getElementById('pnchart').getContext('2d');
               }
             ]
           },
-          
         });
 
 

@@ -84,11 +84,20 @@ $sql5c = "SELECT pDistrict, COUNT(*) AS freq FROM patient WHERE pStatus='D' GROU
 $sql6a = "SELECT pDistrict, COUNT(*) AS freq FROM patient WHERE pGender='F' GROUP BY pDistrict";
 $sql6b = "SELECT pDistrict, COUNT(*) AS freq FROM patient WHERE pGender='M' GROUP BY pDistrict";
 
+$sql7a = "SELECT pStatus, COUNT(*) AS freq FROM patient WHERE pGender='F' GROUP BY pStatus";
+$sql7b = "SELECT pStatus, COUNT(*) AS freq FROM patient WHERE pGender='M' GROUP BY pStatus";
+
+
+
 $result5a = $conn->query($sql5a);
 $result5b = $conn->query($sql5b);
 $result5c = $conn->query($sql5c);
 $result6a = $conn->query($sql6a);
 $result6b = $conn->query($sql6b);
+$result7a = $conn->query($sql7a);
+$result7b = $conn->query($sql7b);
+
+
 
 
 
@@ -98,6 +107,8 @@ $status_frequency_N=[];
 $status_frequency_D=[];
 $male_district_frequency=[];
 $female_district_frequency=[];
+$male_status_frequenncy=[];
+$female_status_frequency=[];
 
 
 if ($result5a->num_rows > 0) {
@@ -141,6 +152,18 @@ if ($result6b->num_rows > 0) {
     $male_district_frequency[] = $row["freq"];
   }
 } 
+
+if ($result7a->num_rows > 0) {
+  while($row = $result7a->fetch_assoc()) {
+    $female_status_frequency[] = $row["freq"];
+  }
+} 
+if ($result7b->num_rows > 0) {
+  while($row = $result7b->fetch_assoc()) {
+    $male_status_frequency[] = $row["freq"];
+  }
+} 
+
 
 
 
@@ -264,7 +287,11 @@ $conn->close();
         </div>
         <div class="space"></div>
         <div class="item">
-        <canvas id="age-gender-chart" width="800" height="450"></canvas>
+        <canvas id="district-gender-chart" width="800" height="450"></canvas>
+        </div>
+        <div class="space"></div>
+        <div class="item">
+        <canvas id="status-gender-chart" width="800" height="450"></canvas>
         </div>
 
 
@@ -401,7 +428,7 @@ new Chart(document.getElementById("bar-chart-horizontal"), {
 
 
 var ltx = document.getElementById('pnchart').getContext('2d');
-      var myChart = new Chart(ltx, {
+var myChart = new Chart(ltx, {
           type: 'bar',
           data: {
             labels: ["ALP","EKM","IDK","KNR","KGD","KLM","KTM","KKD","MLP","PKD","PT","TVM","TSR","WAD"],
@@ -426,9 +453,10 @@ var ltx = document.getElementById('pnchart').getContext('2d');
               }
             ]
           },
-        });
+});
 
-new Chart(document.getElementById("age-gender-chart"), {
+
+new Chart(document.getElementById("district-gender-chart"), {
   type: 'line',
   data: {
     labels: ["ALP","EKM","IDK","KNR","KGD","KLM","KTM","KKD","MLP","PKD","PT","TVM","TSR","WAD"],
@@ -452,6 +480,45 @@ new Chart(document.getElementById("age-gender-chart"), {
     title: {
       display: true,
       text: 'District Wise Gender Analysis',
+      fontSize: 10
+    },
+    legend: {
+      position : 'bottom',
+      labels:{
+        usePointStyle:true,
+        pointStyle: 'circle',
+        fontSize:8
+
+      }
+    },
+  }
+});
+
+new Chart(document.getElementById("status-gender-chart"), {
+  type: 'line',
+  data: {
+        labels: ["Death","-Ve","+Ve"],
+        datasets: [
+      {
+        data:  <?php echo json_encode($male_status_frequency);?>,
+        label: "Male",
+        borderColor: "#022e57",
+        backgroundColor:"#022e57",
+        fill: false
+      }, 
+      { 
+        type: 'bar',
+        label: 'Female',
+        data: <?php echo json_encode($female_status_frequency);?>,
+        borderColor: 'rgb(255,99,132)',
+        backgroundColor: 'rgb(255,99,132,0.3)'
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Gender Vise Patient Status',
       fontSize: 10
     },
     legend: {

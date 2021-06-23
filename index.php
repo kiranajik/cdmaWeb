@@ -383,8 +383,8 @@ var lineChart = new Chart(dtx, {
       {
         label: "Covid Age Wise Distribution",
         data: <?php echo json_encode($age_frequency); ?>,
-        backgroundColor:'#F54748',
-        borderColor: 'rgb(75, 192, 192)'
+        backgroundColor:'rgb(245, 71, 72,0.3)',
+        borderColor: 'rgb(245, 71, 72)'
       }
     ],
     options: {

@@ -280,8 +280,8 @@ var lineChart = new Chart(dtx, {
       {
         label: "Vaccinations Age Wise Distribution",
         data: <?php echo json_encode($ageFrequency); ?>,
-        backgroundColor:'#ffc002',
-        borderColor: '#00203FFF'
+        backgroundColor:'rgb(100,138,225,0.3)',
+        borderColor: '#648AE1'
       }
     ],
     options: {

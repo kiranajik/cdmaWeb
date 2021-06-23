@@ -205,20 +205,22 @@ const chart = new Chart(ctx, {
       data: <?php echo json_encode($districtFrequecy); ?>,
       backgroundColor: [
 
-      '#F54748',
-      '#ff96ad',
       '#005a8d',
-      '#022e57',
+      "#009688",
+      "#96ceb4",
+      "#76b4bd",
       "#95a5a6",
-        "#2b59b6",
-        "#f1c40f",
-        "#fe9c8f",
-        "#34495e",
-        "#851e3e",
-        "#63ace5",
-        "#009688",
-        "#96ceb4",
-        "#76b4bd"
+      "#2b59b6",   
+      "#34495e",
+      "#851e3e",
+      '#F54748',
+      "#FFEEDB",
+      '#ff96ad',
+      '#022e57',
+      "#f1c40f",
+      "#fe9c8f",
+      "#63ace5"
+
       ],
     }]
   },
@@ -261,8 +263,8 @@ var myChart = new Chart(btx, {
     labels: ["Male","Female"],
     datasets: [{
       backgroundColor: [
-        "#2ecc71",
-        "#3498db"
+        "#00203FFF",
+        "#ADEFD1FF"
       ],
       data: <?php echo json_encode($genderFrequency); ?>,
     }]
@@ -278,8 +280,8 @@ var lineChart = new Chart(dtx, {
       {
         label: "Vaccinations Age Wise Distribution",
         data: <?php echo json_encode($ageFrequency); ?>,
-        backgroundColor:'#F54748',
-        borderColor: 'rgb(75, 192, 192)'
+        backgroundColor:'#ffc002',
+        borderColor: '#00203FFF'
       }
     ],
     options: {

@@ -6,11 +6,11 @@ header {
     background-color: #ED2B33FF;
     border: black;
     border-width: 2px;
-    box-shadow: 1px 8px 20px grey;
+    box-shadow: none;
 }
 
-.header-dark {
-    box-shadow: none;
+.header-light {
+    box-shadow: 1px 8px 20px grey;
 }
 
 button {

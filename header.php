@@ -28,7 +28,7 @@
             <div class="banner-val">
             Covid 19 Visual Analysis
             </div>
-            <button type="button" class="theme-toggle"  name="dark_light"  title="Toggle dark/light mode"><img id="mode" src="moon.png"></button>
+            <button type="button" class="theme-toggle"  name="dark_light"  title="Toggle dark/light mode"><img id="mode" src="sun.png"></button>
         </div>
 
 		<div id="mySidenav" class="sidenav">

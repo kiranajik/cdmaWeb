@@ -104,11 +104,11 @@ $conn->close();
           }
 
         body{
-          background-color:#e2e1e0;
+          background-color:#121212;
         }
 
-        .dark{
-          background-color:#121212;
+        .light{
+          background-color:#e2e1e0;
         }
 
 
@@ -140,15 +140,15 @@ $conn->close();
     }
  }
 
-    .item{
-      background-color:white;
+ .item{
+      background-color:#1f1f1f;
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
       padding:20px;
       border-radius:10px;
     }
 
-    .item-dark{
-      background-color:#1f1f1f;
+    .item-light{
+      background-color:white;
      }
     .space{
       height:1em;
@@ -162,7 +162,9 @@ $conn->close();
 <body>
 
 <?php include "header.php"; ?>
-<?php include "nav.php"; ?>
+<?php 
+$page="vaccination";
+include "nav.php"; ?>
 <div class="container">
 
 
@@ -362,30 +364,30 @@ new Chart(document.getElementById("district-gender-chart"), {
 
 
 
-
 $(document).ready(function(){
 
 
-            $('.theme-toggle').click(function(){
-                var element = document.body;  
-                var url = $('#mode').attr('src');       
-                element.classList.toggle("dark");
-                $('header').toggleClass('header-dark');
-                $('.item').toggleClass('item-dark');
+      $('.theme-toggle').click(function(){
+          var element = document.body;  
+          var url = $('#mode').attr('src');       
+          element.classList.toggle("light");
+          $('header').toggleClass('header-light');
+          $('.item').toggleClass('item-light');
 
-                if(url=="moon.png")
-                {
-                dark="false";
-                $('#mode').attr('src','sun.png');
-                }
-                else if(url=="sun.png")
-                {
-                dark="true";
-                $('#mode').attr('src','moon.png');
-                }
-           
-            });
-        }); 
+          if(url=="moon.png")
+          {
+          dark="false";
+          $('#mode').attr('src','sun.png');
+          }
+          else if(url=="sun.png")
+          {
+          dark="true";
+          $('#mode').attr('src','moon.png');
+          }
+
+      });
+}); 
+
 
 
 

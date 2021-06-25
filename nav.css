@@ -13,9 +13,3 @@
     color: white;
     border-radius: 10px;
 }
-
-@media screen and (max-width: 650px) {
-    .nav-button {
-        font-size: 0.7em;
-    }
-}
